@@ -9,6 +9,11 @@ This is an evolving process and the plan is to make it flexible enough to proces
 All py files assumes assumes one target flight dataset per subfolder, so they iterate over them generating separated Metashape px and further processing steps.
 
 
+<p align="center">
+  <img src="Screenshot1.png" width="500" height="300">
+</p>
+
+
 1) check if anaconda is installed locally
 ```
 conda --version
@@ -82,4 +87,18 @@ The following diagram describes the steps involved in processing the datasets:
 </p>
 
 
+Example screenshots of interactive windows: 
+
+<p align="center">
+  <img src="Screenshot2.png" width="500" height="300">
+</p>
+<p align="center">
+  <img src="Screenshot3.png" width="500" height="300">
+</p>
+<p align="center">
+  <img src="Screenshot4.png" width="500" height="300">
+</p>
+<p align="center">
+  <img src="Screenshot5.png" width="500" height="300">
+</p>
 
