@@ -14,8 +14,8 @@ def create_or_recreate_folder(folder):
     os.makedirs(folder)
     return folder
 
-#def reproject_tiff(input_path, output_folder_reprojected, target_crs="EPSG:32616"):
-def reproject_tiff(input_path, output_folder_reprojected, target_crs="EPSG:32614"):
+def reproject_tiff(input_path, output_folder_reprojected, target_crs="EPSG:32616"):
+
     # Create the output directory if it doesn't exist
     #os.makedirs(output_folder_reprojected, exist_ok=True)
 
@@ -60,8 +60,8 @@ def reproject_tiff(input_path, output_folder_reprojected, target_crs="EPSG:32614
                     resampling=Resampling.nearest
                 )
 
-#def reproject_shp(input_path, output_folder, target_crs="EPSG:32616"):
-def reproject_shp(input_path, output_folder, target_crs="EPSG:32614"):
+def reproject_shp(input_path, output_folder, target_crs="EPSG:32616"):
+
     # Extract the base name of the shapefile
     shp_base_name = os.path.splitext(os.path.basename(input_path))[0]
 
@@ -96,20 +96,13 @@ def reproject_all_shps(input_folder, output_folder):
 
 if __name__ == "__main__":
     # Define base folders
-    # base_folder_images = '../data/images/input_images'
-    # base_folder_shps = '../data/shps/final_shps_postshifted'
-
-    # # Define output folders
-    # output_folder_images_utm = '../data/images/input_images_utm1'
-    # output_folder_shps_utm = '../data/shps/final_shps_postshifted_utm1'
-    
-    # Define base folders
-    base_folder_images = '../data/tif_yan'
-    base_folder_shps = '../data/shp_yan'
+    base_folder_images = '../data/images/input_images'
+    base_folder_shps = '../data/shps/final_shps_postshifted'
 
     # Define output folders
-    output_folder_images_utm = '../data/tif_yan_utm1'
-    output_folder_shps_utm = '../data/shp_yan_utm1'
+    output_folder_images_utm = '../data/images/input_images_utm1'
+    output_folder_shps_utm = '../data/shps/final_shps_postshifted_utm1'
+    
 
     # Create or recreate the output folders
     output_folder_images_utm = create_or_recreate_folder(output_folder_images_utm)
