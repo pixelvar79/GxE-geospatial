@@ -1,0 +1,16 @@
+1) check if anaconda is installed locally
+conda --version
+https://docs.conda.io/projects/miniconda/en/latest/
+
+miniconda will be enough for creating venv and dependencies
+
+During the installation, you might be prompted to add Anaconda to the system PATH. If not, and if you encounter issues, you can add it manually:
+
+On Windows, you can check "Add Anaconda to my PATH environment variable" during installation.
+On Linux/Mac, you may need to add the following line to your shell profile file (e.g., .bashrc or .zshrc):
+
+2) conda create --name gxe python=3.9
+
+3) conda activate gxe
+
+4) conda install --file requirements.txt -c conda-forge  (takes some time so wait for it)

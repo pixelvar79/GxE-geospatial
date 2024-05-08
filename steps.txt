@@ -1,0 +1,13 @@
+1) metashape api (BC)
+2) reproject.py to utm
+3) mask_and_stacking_processing.py
+4) shift_corrector.py
+5) polygon_creator.py (once a new field trial is added)
+6) chips_generator.py
+7) tabular_stats_extractor.py
+
+plot_temporal.py
+plot_monitoring_heatmap.py
+plot_chips.py 
+
+
