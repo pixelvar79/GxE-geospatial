@@ -78,7 +78,7 @@ The following diagram describes the steps involved in processing the datasets:
 -------
 
 <p align="center">
-  <img src="Screenshot 2024-05-08 125520.png">
+  <img src="Screenshot 2024-05-08 125520.png" width="200" height="300">
 </p>
 
 
