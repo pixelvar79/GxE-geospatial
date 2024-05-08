@@ -6,6 +6,8 @@ This is a sequence of Python scripts that allow to semi-automatically process la
 
 This is an evolving process and the plan is to make it flexible enough to process any kind of aerial imagery regardless of the aerial platform or sensor dealing with.
 
+All py files assumes assumes one target flight dataset per subfolder, so they iterate over them generating separated Metashape px and further processing steps.
+
 
 1) check if anaconda is installed locally
 ```
@@ -16,7 +18,7 @@ conda --version
   
   miniconda will be enough for creating venv and dependencies
   
-  During the installation, you might be prompted to add Anaconda to the system PATH. If not, and if you encounter issues, you can add it manually:
+  During the installation, you might be prompted to add Anaconda to the system PATH. If not, and if you encounter issues, you can add it         manually:
   
   On Windows, you can check "Add Anaconda to my PATH environment variable" during installation.
   On Linux you may need to add the following line to your shell profile file (e.g., .bashrc or .zshrc):
@@ -29,6 +31,7 @@ Build local Conda virtual environment and dependencies
   
   pip install -r requirements.txt
 ```
+  Metashape
   rasterio==1.3.8
   pyproj==3.6.1
   fiona==1.9.4
@@ -41,75 +44,42 @@ Build local Conda virtual environment and dependencies
   tk==8.6.13
   seaborn
 
-2) Execute lodging detection evaluation
+2) Execute Metashape step, check guideline on how to install Metashape API and key license in https://agisoft.freshdesk.com/support/solutions/articles/31000148930-how-to-install-metashape-stand-alone-python-module 
 ```
-  python lodging_detection.py --fit-type time-point 
+  python metashape_workflow_modularized.py input_folder output_folder
 ```
-  (for traditional time-point CNN analysis)
 
-  or
-  
+3) Reproject all to common geographic system
+```
+  python reproject_files.py
+```
+4) Resample, mask, stack (5-MSI + CSM)
+
   ```
-  python lodging_detection.py --fit-type temporal 
+  python mas_stacking_processing.py
 ```
-  (for temporal integrated CNN analysis)
 
-3) Execute lodging severity evaluation
+5) Shift X and Y correction between consecutive dates of Orthomosaics stacked and reprojected
+
 ```
-  python lodging_severity.py --fit-type time-point
+python shift_corrector.py --mode manual 
 ```
-  (for traditional time-point CNN analysis)
+6) Chips generator for each orthomosaic+CSM stack shift and ground normalized corrected (at field trial)
 
-  or
-  ```
-  python lodging_severity.py --fit-type temporal 
-  ```
-  (for temporal integrated CNN analysis)
+```
+python chip_generator.py 
+```
+7) Tabular stats extractor at the plot level for each  orthomosaic+CSM stack shift and ground normalized corrected (at field trial). Included stats descriptors such as mean, min, max for each of the bands, csm, fcover, ndvi, ndre.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h1 style="text-align: center;">'pyAerialExtractor' A GEOSPATIAL TOOLBOX FOR PROCESSING VERY-HIGH-SPATIAL RESOLUTION AERIAL IMAGERY OVER AGRONOMIC AND BREEDING TRIALS</h1> 
-
--------
--------
-
-
-The story of this started as part of a collaboratory regional nextwork among bioenergy breeders and agronomists willing to better understand the seasonal dynamics of these crops under different environment conditions in US.
-
-The following diagram describes a summary of the steps involved in the processing of the datasets:
-
--------
+```
+python tabular_stats_extractor.py 
+```
+The following diagram describes the steps involved in processing the datasets:
 -------
 
 <p align="center">
-  <img src="Screenshot1.png">
+  <img src="Screenshot 2024-05-08 125520.png">
 </p>
 
 
-The process starts with the implementation of Metashape API Professional Edition in a BioCluster located at the Institie for Genomic Biology (IGB) at the University of Illinois Urbana-Champaign. This py script enables to automate 
-the Metashape processing steps of the original imagery collected with the UAV flights at different locations preventing to use the interactive traditional GUI interface of the software which can be a limitation for processing large number 
-of flights over the growing season of the crops.
-
-------
-------
-
-*Reproject Tool* 
-
-The tool was desinged as early step for checking and reprojecting if needed tif files generated in Metashape API and vector shapefiles under EPSG:3246 (spherical coordindates system) into planar coordindate systems e.g., EPSG:32616 (Illinois) 
-given that planar features calculation is going to be produced in the following steps.
-
-The following parameters should be provided in the tool as function arguments in the command line: (relative input folder path for shps, relative output folder path for shps, relative input folder path for tifs, relative output folder path for tifs, 
-output target coordindate system).
 
